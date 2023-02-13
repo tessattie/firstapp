@@ -1,7 +1,5 @@
 <?php 
-
-// page to have access to the app 
-// We have to check if the value of hmac is correct
+include_once('includes/mysql_connect.php') ;
 
 $_API_KEY = '69c8c0bda75fb65d3c9cab2b04e886b2';
 $_SECRET_KEY = '1e55e6cabb77dddd8cb48333dbcbe0ef';
@@ -16,6 +14,7 @@ $new_hmac = hash_hmac('sha256', http_build_query($data), $_SECRET_KEY);
 
 if(hash_equals($hmac, $new_hmac)){
 	$access_token_endpoint = 'https://' . $shop . '/admin/oauth/access_token';
+	
 	$var = array(
 		'client_id' => $_API_KEY,
 		'client_secret' => $_SECRET_KEY, 
@@ -33,11 +32,16 @@ if(hash_equals($hmac, $new_hmac)){
 	$response = curl_exec($ch);
 	$response = json_decode($response, true); 
 
-	if(curl_error($ch)) {
-    	echo print_r(curl_error($ch));
-	}
-
 	echo print_r($response);
+
+
+    // TODO : this has to be changed with a prepared statement. 
+	$query = "INSERT INTO shops (shop_url, access_token, created) VALUES('".$shop."', '".$response['access_token']."', NOW()) ON DUPLICATE KEY UPDATE access_token='".$response['access_token']."'";
+
+	if($mysql->query($query)){
+		echo '<script>top.window.location = "https://'.$shop.'/admin/apps"</script>';
+		die();
+	}
 
 	curl_close($ch);
 }else{

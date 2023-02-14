@@ -21,9 +21,34 @@ include_once('includes/check_token.php') ;
  * =========================================================================
  */
 
-$products = $shopify->api_call('/admin/api/2021-04/products.json', array('status' => 'active'), 'GET'); 
-$response = json_decode($products['body'], true); 
-$products = $response;
+// $products = $shopify->api_call('/admin/api/2021-04/products.json', array('status' => 'active'), 'GET'); 
+// $response = json_decode($products['body'], true); 
+// $products = $response;
+
+$sql_query = array('query' => "{
+  products ( first:5 ) {
+    edges {
+      node {
+        id
+        title
+        description
+        status
+        images ( first:1 ){
+          edges{
+            node{
+              id
+              originalSrc
+            }
+          }
+        }
+      }
+    }
+  }
+}");
+
+$products = $shopify->graphql($sql_query);
+$products = json_decode($products['body'], true);
+$products = $products['data']['products'];
 ?>
 
 <?php include_once('header.php') ; ?>
@@ -41,8 +66,9 @@ $products = $response;
             </tr>
           </thead>
           <tbody>
-            <?php foreach($products as $product) : ?>
-                <?php foreach($product as $key => $value) : ?>
+            <?php foreach($products as $edge) : ?>
+              <?php foreach($edge as $node) : ?>
+                <?php foreach($node as $key => $value) : ?>
                     <?php 
                     $image = count($value['images']) > 0 ? $value['images'][0]['src'] : '';
                     ?>
@@ -61,7 +87,7 @@ $products = $response;
                 </tr>
                 <?php endforeach; ?>
             <?php endforeach; ?>
-           
+          <?php endforeach; ?> 
         </tbody>
     </table>
 </section>

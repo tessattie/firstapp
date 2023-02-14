@@ -9,6 +9,8 @@ include_once('includes/shopify.php') ;
  * =========================================================================
  */
 
+$page_title = "Display Settings";
+
 $shopify = new Shopify();
 
 $data = $_GET;
@@ -30,7 +32,6 @@ $response = json_decode($products['body'], true);
 
 <!-- START PAGE CONTENT -->
 
-<h1>SETTINGS</h1>
 
 <!-- END PAGE CONTENT -->
 

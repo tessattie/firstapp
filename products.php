@@ -13,6 +13,8 @@ $shopify = new Shopify();
 
 $data = $_GET;
 
+$page_title = "Related Products";
+
 include_once('includes/check_token.php') ;
 
 /**
@@ -31,8 +33,6 @@ $sql_query = array('query' => "{
       node {
         id
         title
-        description
-        status
         images ( first:1 ){
           edges{
             node{
@@ -41,6 +41,7 @@ $sql_query = array('query' => "{
             }
           }
         }
+        status
       }
     }
   }
@@ -70,7 +71,7 @@ $products = $products['data']['products'];
               <?php foreach($edge as $node) : ?>
                 <?php foreach($node as $key => $value) : ?>
                     <?php 
-                    $image = count($value['images']) > 0 ? $value['images'][0]['src'] : '';
+                    $image = count($value['images']['edges']) > 0 ? $value['images']['edges'][0]['node']['originalSrc'] : '';
                     ?>
                 <tr>
                     <?php if(!empty($image)) : ?>

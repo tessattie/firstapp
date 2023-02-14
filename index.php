@@ -39,10 +39,7 @@ $query = array('query' => "{
   }");
 
 
-  $graphql_test = $shopify->graphql($query);
-  $graphql_test = json_decode($graphql_test['body'], true);
-
-  echo print_r($graphql_test);
+  $page_title = "Help";
 
 ?>
 

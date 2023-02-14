@@ -11,6 +11,8 @@ include_once('includes/shopify.php') ;
 
 $shopify = new Shopify();
 
+$page_title = "Customer Support";
+
 $data = $_GET;
 
 include_once('includes/check_token.php') ;
@@ -27,7 +29,6 @@ include_once('includes/check_token.php') ;
 
 <!-- START PAGE CONTENT -->
 
-<h1>SUPPORT</h1>
 
 <!-- END PAGE CONTENT -->
 

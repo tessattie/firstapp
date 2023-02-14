@@ -9,6 +9,8 @@ include_once('includes/shopify.php') ;
  * =========================================================================
  */
 
+$page_title = "Installation Instructions";
+
 $shopify = new Shopify();
 
 $data = $_GET;
@@ -27,7 +29,6 @@ include_once('includes/check_token.php') ;
 
 <!-- START PAGE CONTENT -->
 
-<h1>INSTALLATION</h1>
 
 <!-- END PAGE CONTENT -->
 

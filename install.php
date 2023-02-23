@@ -1,7 +1,7 @@
 <?php 
 // Installer file
 // Tunnel to connect to app, update when you reconnect to the app
-$_NGROK = 'https://750e-190-115-138-228.eu.ngrok.io';
+$_NGROK = 'https://a98f-186-190-98-2.ngrok.io';
 // Shopify API KEY
 $_API_KEY = '69c8c0bda75fb65d3c9cab2b04e886b2';
 //shopify store name

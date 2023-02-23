@@ -19,6 +19,14 @@ include_once('includes/check_token.php') ;
  * =========================================================================
  */
 
+ include_once('billing/reccuring.php') ;
+
+/**
+ * =========================================================================
+ *                    DISPLAY ANYTHING ABOUT THE STORE
+ * =========================================================================
+ */
+
 
 // $access_scopes = $shopify->api_call('/admin/oauth/access_scopes.json', array(), 'GET'); 
 // $response = json_decode($access_scopes['body'], true); 
